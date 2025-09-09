@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Happy Birthday Pamet</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: "Times New Roman", sans-serif;
+      background: #000;
+      color: #fff;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    /* Hiu */
+    #shark-container {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      overflow: hidden;
+    }
+    .shark {
+      position: absolute;
+      font-size: 2em;
+      opacity: 0;
+      transition: all 1s ease;
+    }
+    .shark.active {
+      opacity: 1;
+      transform: scale(1.1);
+    }
+
+    /* Message */
+    #message {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-family: "Times New Roman", serif;
+      font-size: 2.5em;
+      display: none;
+    }
+
+    /* Slideshow + teks */
+    #slideshow-container, #slideshow-container2 {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+      height: 100vh;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+    #slideshow-container h2, #slideshow-container2 h2 {
+      margin-bottom: 15px;
+      font-size: 2em;
+    }
+    #slideshow {
+      width: 100%;
+      height: 50vh;
+      position: relative;
+      margin: 0 auto 20px auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+    #slideshow img {
+      max-width: 80%;
+      max-height: 100%;
+      border-radius: 8px;
+      box-shadow: 0 4px 20px rgba(255,255,255,0.3);
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
+      position: absolute;
+    }
+    #slideshow img.active {
+      opacity: 1;
+    }
+    #text-content {
+      max-height: 45vh;
+      overflow-y: auto;
+      width: 100%;
+      text-align: justify;
+      padding-right: 10px;
+    }
+    #text-content p {
+      margin: 10px 0;
+      font-size: 1.2em;
+      line-height: 1.5em;
+    }
+
+    #slideshow-container2 {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+      height: 100vh;
+      padding: 20px;
+      box-sizing: border-box;
+      overflow-y: auto; /* agar teks bisa di-scroll */
+    }
+    #text-content2 {
+      width: 100%;
+      max-width: 900px;
+      text-align: justify;
+      font-size: 1.2em;
+      line-height: 1.6em;
+    }
+
+    #slideshow-container3 {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+      height: 100vh;
+      padding: 20px;
+      box-sizing: border-box;
+      overflow-y: auto;
+    }
+    #gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+      width: 100%;
+      max-width: 900px;
+      margin-top: 20px;
+    }
+    #gallery img {
+      width: 100%;
+      aspect-ratio: 3 / 4;
+      object-fit: cover;
+      border-radius: 8px;
+      box-shadow: 0 4px 20px rgba(255,255,255,0.3);
+      transition: transform 0.3s ease;
+      cursor: pointer;
+    }
+    #gallery img:hover {
+      transform: scale(1.05);
+    }
+
+    /* Ending Credits */
+    #credits {
+      display: none;
+      width: 100%;
+      height: 100vh;
+      background: #000;
+      overflow: hidden;
+      position: relative;
+    }
+    #credits-content {
+      position: absolute;
+      bottom: -100%;
+      width: 100%;
+      text-align: center;
+      animation: roll 30s linear forwards;
+    }
+    #credits-content h2 {
+      font-size: 2em;
+      margin-bottom: 20px;
+    }
+    #credits-content p {
+      margin: 10px 0;
+      font-size: 1.2em;
+    }
+    @keyframes roll {
+      from { bottom: -100%; }
+      to { bottom: 100%; }
+    }
+
+    /* Tombol */
+    #next-btn, #replay-btn {
+      display: none;
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      padding: 10px 20px;
+      background: #e50914;
+      color: #fff;
+      font-size: 1em;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+      transition: background 0.1s ease;
+    }
+    #next-btn:hover, #replay-btn:hover {
+      background: #b20710;
+    }
+    #replay-btn {
+      right: auto;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+  </style>
+</head>
+<body>
+  <div id="shark-container"></div>
+
+  <div id="message">SELAMAT BERTAMBAH USIA KE DUA PULUH TAHUN:
+    <p>STUDI KASUS HARI SPESIAL UNTUK MANUSIA FAVORITE.</p>
+  </div>
+
+  <div id="slideshow-container">
+    <h2>PENDAHULUAN</h2>
+    <div id="slideshow">
+        <img src="img/aryakecil1.jpg" alt="foto1" class="slide">
+        <img src="img/aryaayah.jpg" alt="foto2" class="slide">
+        <img src="img/arrsaa.jpg" alt="foto3" class="slide">
+        <img src="img/aryasd.jpg" alt="foto4" class="slide">
+        <img src="img/aryasmp.jpg" alt="foto5" class="slide">
+    </div>
+    <div id="text-content">
+        <p>Sebagian orang menganggap hari kelahiran adalah hari yang spesial, sisanya menganggap hari kelahiran sama seperti hari biasa pada umumnya. Aku tidak tahu bagaimana kamu mendeskripsikan hari kelahiranmu, dan kamu juga tidak perlu memikirkan perspektif orang lain tentang hal itu. Satu hal yang perlu kamu ketahui, aku di sini sangat bersyukur karena kamu ada di dunia yang luas ini. 18 September adalah hari yang selalu aku nantikan setiap tahunnya. tahun ini, tahun depan, dan tahun-tahun berikutnya.</p>
+        <p>Tepat pada hari ini, dua puluh tahun yang lalu, seorang pria bernama Arya Irfanulloh lahir ke dunia. Dari seorang ibu yang hebat, kamu tumbuh menjadi pribadi yang luar biasa: pekerja keras, cerdas, penuh semangat, dan tetap hangat di hati. Aku sangat bersyukur bisa mengenalmu, berada di sampingmu, dan melihat versi terbaikmu setiap hari.</p>
+        <p>Dua puluh tahun bukan waktu yang singkat. Tentu tidak mudah bagimu melewati perjalanan hidup ini. antara pekerjaan, kuliah, dan kehidupan sehari-hari. Sudah banyak tantangan dan rintangan yang kamu lewati, tapi juga ada banyak kebahagiaan yang menghampiri. Mungkin kadang kamu merasa masih kurang atau belum cukup, tapi aku di sini akan selalu bangga dengan setiap pencapaianmu, sekecil apa pun itu. Aku selalu di sampingmu, untuk mendukung dan menemanimu.</p>
+        <p>Untuk masa depan yang kamu impikan, aku berharap selalu ada aku di setiap langkah perjalananmu. Semoga semua hal baik yang kamu rencanakan terwujud dengan indah, dan semua hal indah yang aku harapkan juga hadir bersamamu, yaitu kamu. Semoga selalu ada kata “kita” di perjalanan panjang ini, dan semoga aku bisa terus hadir di setiap hari spesialmu.</p>
+        <p>Aku percaya bahwa 20 tahun hidupmu bukan hal yang mudah. Banyak usaha, air mata, dan pengalaman yang membentuk siapa dirimu sekarang. Tujuan penulisan ini adalah agar kamu tahu seberapa bangganya aku terhadap semua yang sudah kamu lalui, seberapa berharganya dirimu di hidupku, seberapa besar cintaku untukmu, dan seberapa jauh harapan yang selalu aku usahakan untuk kita. Semoga setelah membaca ini, kamu tahu bahwa ada seseorang yang selalu ada di sampingmu dalam keadaan apapun.</p>
+        <p>Di kehidupan ini, banyak orang yang bersyukur karena kamu ada: keluarga, teman, rekan kerja, bahkan orang asing yang kamu bantu, dan tentu saja aku. Aku juga sangat bangga karena di tengah kesibukan kuliah dan pekerjaanmu, kamu tetap berani mencoba hal-hal baru, berani menghadapi tantangan, dan terus berkembang. Semoga di perjalanan yang panjang ini, aku bisa menjadi bagian dari setiap langkah, cerita, dan pengalaman baru yang akan kamu lalui.</p>
+    </div>
+  </div>
+
+  <div id="slideshow-container2">
+    <h2>HASIL PEMBAHASAN</h2>
+    <div id="text-content2">
+        <p>Selamat Ulang Tahun ke-20, Pamet</p>
+        <p>Selamat bertambah usia, pamet gila! Wah, sekarang sudah kepala dua ya, hehe. Dengan bertambahnya umurmu, aku selalu berharap pamet selalu diberikan kebahagiaan—hari ini, besok, dan seterusnya. Semoga dengan bertambahnya umur, pamet bisa menjadi pribadi yang lebih baik, lebih dewasa, rajin sholat lima waktu, rajin kuliah, tetap nurut sama mamah dan ayah, dan tentunya makin sayang sama adik.</p>
+        <p>Aku juga berharap dalam perjalanan panjang hidupmu, aku selalu bisa hadir di setiap momenmu. Walaupun dunia kadang menuntut pamet untuk terlihat kuat dan baik-baik saja, itu bukan berarti pamet harus selalu menahan diri. Di hadapanku, pamet bebas menunjukkan semua sisi pamet. Boleh lelah, marah, sedih, atau bahagia.</p>
+        <p>Semoga di dunia yang penuh tantangan ini, pamet selalu dikelilingi oleh orang-orang baik yang sayang sama pamet. Semoga semua doa yang aku panjatkan untukmu dikabulkan Tuhan. Semoga setiap langkahmu dipenuhi kebahagiaan, kesuksesan, dan kemudahan dalam menghadapi segala tantangan. Aku akan selalu bangga dengan setiap pencapaianmu dan selalu mendukungmu dalam setiap proses hidupmu.</p>
+        <p>Untuk manusia kesayanganku, hari ini adalah hari spesialmu. Aku ingin semua orang di bumi ini tahu bahwa manusia yang paling baik yang pernah aku temui sedang bertambah usia hari ini. Terlahir sebagai seseorang yang ceritanya indah, pamet sungguh menjadi halaman paling menyenangkan dalam hidupku.</p>
+        <p>Terima kasih telah memilih terlahir menjadi manusia yang mencintaiku, terima kasih atas kebahagiaan, tawa, dan semua kejutan indah yang kau hadirkan. Semoga setiap impianmu tercapai, hidupmu selalu dipenuhi hal-hal baik, dan semesta selalu berpihak padamu.</p>
+        <p>Sekali lagi, selamat ulang tahun, M. Arya Irfanulloh. Teruslah tumbuh menjadi lelaki baik, dan tolong hidup lebih lama lagi. Aku selalu ada untukmu.</p>
+    </div>
+  </div>
+
+  <div id="slideshow-container3">
+    <h2>LAMPIRAN</h2>
+    <div id="gallery">
+      <img src="img/aryajourney.jpg" alt="Foto 1">
+      <img src="img/aryajourney1.jpg" alt="Foto 2">
+      <img src="img/aryajourney2.jpg" alt="Foto 3">
+      <img src="img/aryajourney3.jpg" alt="Foto 4">
+      <img src="img/aryajourney4.jpg" alt="Foto 5">
+      <img src="img/aryajourney5.jpg" alt="Foto 6">
+      <img src="img/aryajourney6.jpg" alt="Foto 7">
+      <img src="img/aryajourney7.jpg" alt="Foto 8">
+      <img src="img/aryajourney8.jpg" alt="Foto 9">
+      <img src="img/aryajourney9.jpg" alt="Foto 10">
+      <img src="img/aryajourney10.jpg" alt="Foto 11">
+      <img src="img/aryajourney11.jpg" alt="Foto 12">
+      <img src="img/aryajourney12.jpg" alt="Foto 13">
+      <img src="img/aryafam.jpg" alt="Foto 14">
+      <img src="img/aryafam1.jpg" alt="Foto 15">
+      <img src="img/aryafam2.jpg" alt="Foto 16">
+      <img src="img/aryafam3.jpg" alt="Foto 17">
+      <img src="img/aryafam4.jpg" alt="Foto 18">
+      <img src="img/pamet.jpg" alt="Foto 19">
+      <img src="img/pamet1.jpg" alt="Foto 20">
+      <img src="img/pamet2.jpg" alt="Foto 21">
+      <img src="img/pamet3.jpg" alt="Foto 22">
+      <img src="img/pamet4.jpg" alt="Foto 23">
+      <img src="img/pamet5.jpg" alt="Foto 24">
+      <img src="img/pamet6.jpg" alt="Foto 25">
+      <img src="img/pamet7.jpg" alt="Foto 26">
+      <img src="img/pamet8.jpg" alt="Foto 27">
+      <img src="img/arsa.jpg" alt="Foto 28">
+      <img src="img/arsa1.jpg" alt="Foto 29">
+      <img src="img/arsa2.jpg" alt="Foto 30">
+      <img src="img/arsa3.jpg" alt="Foto 31">
+      <img src="img/arsa4.jpg" alt="Foto 32">
+      <img src="img/arsa5.jpg" alt="Foto 33">
+      <img src="img/arsa6.jpg" alt="Foto 34">
+    </div>
+  </div>
+
+  <div id="credits">
+    <div id="credits-content">
+      <h2>Happy Birthday Arya Irfanulloh</h2>
+      
+      <p>Directed by: Dini Husaini 💖</p>
+      <p>Produced by: Love & Care Studios</p>
+      <p>Written by: Heartfelt Moments Team</p>
+      <p>Music Composer: Terbuang Dalam Waktu</p>
+      <p>Cinematography: Sunsets & Smiles</p>
+      <p>Art Director: Dreams & Wishes</p>
+      <p>Visual Effects: Sparkling Memories</p>
+      <p>Costume Designer: Warm Hugs</p>
+      <p>Lighting: Endless Sunshine</p>
+      <p>Sound Effects: Laughter & Joy</p>
+      <p>Makeup: Sweet Surprises</p>
+      <p>Stunt Coordinator: Brave Adventures</p>
+      <p>Special Thanks: Family & Friends</p>
+      <p>Assistant of Happiness: Little Moments</p>
+      <p>Supporting Cast: Memories, Laughter, Smiles</p>
+      <p>Lead Role: Arya Irfanulloh</p>
+      <p>Co-Star: Love, Patience, & Hugs</p>
+      <p>Extras: Sunshine, Moonlight, Stars ✨</p>
+      <p>Produced with ❤️ by Dini Husaini</p>
+      <p>Fin</p>
+    </div>
+  </div>
+
+  <button id="next-btn">Next ⏭</button>
+  <button id="replay-btn">Replay</button>
+
+  <audio id="bg-music" loop>
+    <source src="lagu.mp3" type="audio/mpeg">
+  </audio>
+
+  <script>
+    const container = document.getElementById("shark-container");
+    const message = document.getElementById("message");
+    const slideshowContainer = [
+      document.getElementById("slideshow-container"),
+      document.getElementById("slideshow-container2")
+    ];
+    const credits = document.getElementById("credits");
+    const nextBtn = document.getElementById("next-btn");
+    const replayBtn = document.getElementById("replay-btn");
+    const music = document.getElementById("bg-music");
+
+    const sharks = 100;
+    let slideInterval;
+    let step = 0;
+
+    function initSharks() {
+      container.innerHTML = "";
+      for (let i = 0; i < sharks; i++) {
+        const shark = document.createElement("div");
+        shark.className = "shark";
+        shark.textContent = "🦈";
+        container.appendChild(shark);
+      }
+
+      const sharkEls = document.querySelectorAll(".shark");
+      const width = window.innerWidth;
+      const height = window.innerHeight;
+
+      sharkEls.forEach((shark, i) => {
+        const t = (i / sharks) * Math.PI * 2;
+        const x = 16 * Math.pow(Math.sin(t), 3);
+        const y =
+          13 * Math.cos(t) -
+          5 * Math.cos(2 * t) -
+          2 * Math.cos(3 * t) -
+          Math.cos(4 * t);
+        shark.style.left = width / 2 + x * 20 + "px";
+        shark.style.top = height / 2 - y * 20 + "px";
+        setTimeout(() => shark.classList.add("active"), i * 30);
+      });
+
+      music.play().catch(() => {
+        document.body.addEventListener("click", () => music.play(), { once: true });
+      });
+
+      setTimeout(() => {
+        container.style.display = "none";
+        message.style.display = "block";
+        nextBtn.style.display = "block";
+        step = 1;
+      }, 5000);
+    }
+
+    // Slideshow dengan fade
+    let slideIndex = 0;
+    function startSlideshow(slideshowEl) {
+      const slides = slideshowEl.querySelectorAll(".slide");
+      slides.forEach((s) => s.classList.remove("active"));
+      slideIndex = 0;
+      slides[slideIndex].classList.add("active");
+
+      slideInterval = setInterval(() => {
+        slides[slideIndex].classList.remove("active");
+        slideIndex = (slideIndex + 1) % slides.length;
+        slides[slideIndex].classList.add("active");
+      }, 3000);
+    }
+
+    // Tombol Next
+    nextBtn.addEventListener("click", () => {
+      if (step === 1) {
+        message.style.display = "none";
+        slideshowContainer[0].style.display = "flex";
+        startSlideshow(slideshowContainer[0].querySelector("#slideshow"));
+        step = 2;
+      } else if (step === 2) {
+        clearInterval(slideInterval);
+        slideshowContainer[0].style.display = "none";
+        slideshowContainer[1].style.display = "flex";
+        step = 3;
+      } else if (step === 3) {
+        slideshowContainer[1].style.display = "none";
+        document.getElementById("slideshow-container3").style.display = "flex";
+        step = 4;
+      } else if (step === 4) {
+        clearInterval(slideInterval);
+        slideshowContainer.forEach(sc => sc.style.display = "none");
+        document.getElementById("slideshow-container3").style.display = "none";
+
+        credits.style.display = "flex";
+        nextBtn.style.display = "none";
+        replayBtn.style.display = "block";
+        
+        const creditsContent = document.getElementById("credits-content");
+        creditsContent.style.animation = "none";
+        void creditsContent.offsetWidth;
+        creditsContent.style.animation = "roll 10s linear forwards";
+      }
+    });
+
+    // Tombol Replay
+    replayBtn.addEventListener("click", () => {
+      credits.style.display = "none";
+      replayBtn.style.display = "none";
+      container.style.display = "block";
+      slideshowContainer.forEach(sc => sc.style.display = "none");
+      initSharks();
+    });
+
+    // Start pertama kali
+    initSharks();
+  </script>
+</body>
+</html>
