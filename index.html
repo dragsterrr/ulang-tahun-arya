@@ -31,6 +31,16 @@
       transform: scale(1.1);
     }
 
+    #cake-container {
+      display: none;
+      width: 100%;
+      height: 100vh;
+      background: #000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
     /* Message */
     #message {
       position: absolute;
@@ -198,6 +208,10 @@
 <body>
   <div id="shark-container"></div>
 
+  <div id="cake-container">
+    <canvas id="cakeCanvas" width="600" height="500"></canvas>
+  </div>
+
   <div id="message">SELAMAT BERTAMBAH USIA KE DUA PULUH TAHUN:
     <p>STUDI KASUS HARI SPESIAL UNTUK MANUSIA FAVORITE.</p>
   </div>
@@ -356,10 +370,79 @@
 
       setTimeout(() => {
         container.style.display = "none";
-        message.style.display = "block";
-        nextBtn.style.display = "block";
-        step = 1;
-      }, 5000);
+        document.getElementById("cake-container").style.display = "flex";
+        drawCake(); // gambar kue
+        step = 0;   // reset step untuk nextBtn
+        }, 5000);
+    }
+
+    function drawCake() {
+      const canvas = document.getElementById("cakeCanvas");
+      const ctx = canvas.getContext("2d");
+      
+      let stepCake = 0;
+      
+      function drawStep() {
+        if (stepCake === 0) {
+          // Alas kue
+          ctx.fillStyle = "#c5e8c8";
+          ctx.beginPath();
+          ctx.ellipse(300, 400, 150, 40, 0, 0, Math.PI * 2);
+          ctx.fill();
+        } else if (stepCake === 1) {
+          // Layer 1
+          ctx.fillStyle = "#a3d2a7";
+          ctx.fillRect(150, 300, 300, 100);
+          ctx.beginPath();
+          ctx.ellipse(300, 300, 150, 40, 0, 0, Math.PI * 2);
+          ctx.fill();
+        } else if (stepCake === 2) {
+          // Layer 2
+          ctx.fillStyle = "#f7e8aa";
+          ctx.fillRect(180, 220, 240, 80);
+          ctx.beginPath();
+          ctx.ellipse(300, 220, 120, 30, 0, 0, Math.PI * 2);
+          ctx.fill();
+        } else if (stepCake === 3) {
+          // Layer 3
+          ctx.fillStyle = "#ffb732";
+          ctx.fillRect(220, 160, 160, 60);
+          ctx.beginPath();
+          ctx.ellipse(300, 160, 80, 20, 0, 0, Math.PI * 2);
+          ctx.fill();
+        } else if (stepCake === 4) {
+          // Lilin
+          ctx.fillStyle = "#66cccc";
+          for (let i = -2; i <= 2; i++) {
+            let x = 300 + i * 30;
+            ctx.fillRect(x - 5, 100, 10, 60);
+            // Api
+            ctx.fillStyle = "#ff6600";
+            ctx.beginPath();
+            ctx.ellipse(x, 90, 8, 15, 0, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.fillStyle = "#66cccc";
+          }
+        } else if (stepCake === 5) {
+          // Tulisan
+          ctx.fillStyle = "white";
+          ctx.font = "28px Times New Roman";
+          ctx.fillText("Happy Birthday!", 200, 80);
+        } else {
+          // Selesai -> lanjut ke message
+          setTimeout(() => {
+            document.getElementById("cake-container").style.display = "none";
+            message.style.display = "block";
+            nextBtn.style.display = "block";
+            step = 1;
+          }, 2000);
+          return;
+        }
+        stepCake++;
+        setTimeout(drawStep, 1200);
+      }
+      
+      drawStep();
     }
 
     // Slideshow dengan fade
@@ -415,6 +498,11 @@
       replayBtn.style.display = "none";
       container.style.display = "block";
       slideshowContainer.forEach(sc => sc.style.display = "none");
+
+      const canvas = document.getElementById("cakeCanvas");
+      const ctx = canvas.getContext("2d");
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
       initSharks();
     });
 
